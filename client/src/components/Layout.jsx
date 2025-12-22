@@ -2,8 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import css from './Layout.module.css';
 
-// функция для NavLink, которую можно передавать напрямую
-export const navLinkClass = ({ isActive }) => 
+const navLinkClass = ({ isActive }) => 
   isActive ? `${css['nav-link']} ${css.active}` : css['nav-link'];
 console.log(navLinkClass);
 
@@ -18,7 +17,6 @@ const Layout = ({ children }) => {
           <NavLink to="/register" className={navLinkClass}>Register</NavLink>
         </nav>
       </header>
-
       <main className={css.main}>{children}</main>
     </div>
   );
