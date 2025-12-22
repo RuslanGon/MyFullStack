@@ -2,28 +2,20 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import css from './Layout.module.css';
 
+// функция для NavLink, которую можно передавать напрямую
+export const navLinkClass = ({ isActive }) => 
+  isActive ? `${css['nav-link']} ${css.active}` : css['nav-link'];
+console.log(navLinkClass);
+
 const Layout = ({ children }) => {
-
-  const getNavLinkClass = (isActive) => {
-    return isActive ? `${css['nav-link']} ${css.active}` : css['nav-link'];
-  }
-
   return (
     <div className={css.layout}>
       <header className={css.header}>
         <nav className={css.nav}>
-          <NavLink to="/" className={({ isActive }) => getNavLinkClass(isActive)}>
-            Home Page
-          </NavLink>
-          <NavLink to="/cars" className={({ isActive }) => getNavLinkClass(isActive)}>
-            Cars
-          </NavLink>
-          <NavLink to="/login" className={({ isActive }) => getNavLinkClass(isActive)}>
-            Login
-          </NavLink>
-          <NavLink to="/register" className={({ isActive }) => getNavLinkClass(isActive)}>
-            Register
-          </NavLink>
+          <NavLink to="/" className={navLinkClass}>Home Page</NavLink>
+          <NavLink to="/cars" className={navLinkClass}>Cars</NavLink>
+          <NavLink to="/login" className={navLinkClass}>Login</NavLink>
+          <NavLink to="/register" className={navLinkClass}>Register</NavLink>
         </nav>
       </header>
 
