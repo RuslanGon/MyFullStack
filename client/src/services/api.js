@@ -6,3 +6,8 @@ export const fetchApiCars = async () => {
     );
     return data;  
   };
+
+  export const fetchApiCarById = async (id) => {
+    const { data } = await axios.get(`/campers/${id}`)
+    return data;  
+  };  
