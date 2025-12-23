@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchApiCarById } from '../services/api.js';
+import css from './CarPageDetails.module.css';
 
 const CarPageDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const loadCar = async () => {
+    const loadCarById = async () => {
       setLoading(true);
       try {
         const data = await fetchApiCarById(id);
@@ -21,26 +23,42 @@ const CarPageDetails = () => {
         setLoading(false);
       }
     };
-    loadCar();
+    loadCarById();
   }, [id]);
 
   if (loading) return <div>...Loading</div>;
   if (error) return <div>...error</div>;
   if (!car) return null;
 
+  const handleBackCar = () => {
+    navigate('/cars')
+  }
+
   return (
-    <div>
-      <h2>Car details</h2>
-      <ul>
+    <div className={css.wrapper}>
+      <button className={css.backButton} onClick={handleBackCar}>
+        &larr; Back to Cars
+      </button>
+
+      <h2 className={css.title}>Car details</h2>
+      <ul className={css.card}>
         {car.gallery?.[0] && (
           <li>
-            <img src={car.gallery[0].thumb} alt={car.name} width={300} />
+            <img src={car.gallery[0].thumb} alt={car.name} />
           </li>
         )}
-        <li>Name: {car.name}</li>
-        <li>Price: {car.price}</li>
-        <li>Location: {car.location}</li>
-        <li>Description: {car.description}</li>
+        <li>
+          <span>Name:</span> {car.name}
+        </li>
+        <li>
+          <span>Price:</span> ${car.price}
+        </li>
+        <li>
+          <span>Location:</span> {car.location}
+        </li>
+        <li>
+          <span>Description:</span> {car.description}
+        </li>
       </ul>
     </div>
   );
