@@ -6,8 +6,8 @@ const CarsPage = () => {
   const [cars, setCars] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
-  const [query, setQuery] = useState('')
-  const [filter, setFilter] = useState('')
+  const [query, setQuery] = useState('')  
+  const [filter, setFilter] = useState('') 
 
   useEffect(() => {
     const loadCars = async () => {
@@ -16,7 +16,7 @@ const CarsPage = () => {
         const data = await fetchApiCars()
         setCars(data.items)
       } catch (error) {
-        console.log(error);
+        console.log(error)
         setError(true)
       } finally {
         setLoading(false)
@@ -24,6 +24,14 @@ const CarsPage = () => {
     }
     loadCars()
   }, [])
+
+  const handleSearch = () => {
+    setFilter(query)
+  }
+
+  const onChangeFilter = (e) => {
+    setQuery(e.target.value)
+  }
 
   const filteredCars = cars.filter(car =>
     car.name.toLowerCase().includes(filter.toLowerCase())
@@ -41,13 +49,13 @@ const CarsPage = () => {
           type="text"
           placeholder="search"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={onChangeFilter}
         />
 
         <button
           type="button"
           className={css.button}
-          onClick={() => setFilter(query)}
+          onClick={handleSearch}
         >
           Search car
         </button>
