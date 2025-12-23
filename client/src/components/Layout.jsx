@@ -4,7 +4,6 @@ import css from './Layout.module.css';
 
 const navLinkClass = ({ isActive }) => 
   isActive ? `${css['nav-link']} ${css.active}` : css['nav-link'];
-console.log(navLinkClass);
 
 const Layout = ({ children }) => {
   return (

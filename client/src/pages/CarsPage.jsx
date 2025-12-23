@@ -1,43 +1,73 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import { fetchApiCars } from '../services/api.js'
+import css from './CarsPage.module.css'
 
 const CarsPage = () => {
+  const [cars, setCars] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [query, setQuery] = useState('')
+  const [filter, setFilter] = useState('')
 
-const [cars, setCars] = useState(null) 
-const [loding, setLoding] = useState(false) 
-const [error, setError] = useState(false) 
-
-useEffect(() => {
-  setLoding(true)
-  
-  try {
-    async function fetchCars () {
-      const {data} = await axios.get('https://66b1f8e71ca8ad33d4f5f63e.mockapi.io/campers')
-      console.log(data.items);
-      setCars(data.items)
+  useEffect(() => {
+    const loadCars = async () => {
+      setLoading(true)
+      try {
+        const data = await fetchApiCars()
+        setCars(data.items)
+      } catch (error) {
+        console.log(error);
+        setError(true)
+      } finally {
+        setLoading(false)
+      }
     }
-    fetchCars()
-  } catch (error) {
-    console.log(error);
-    setError(true)
-  }finally {
-    setLoding(false)
-  }
-}, 
-[loding])
+    loadCars()
+  }, [])
+
+  const filteredCars = cars.filter(car =>
+    car.name.toLowerCase().includes(filter.toLowerCase())
+  )
 
   return (
-    <div>
-      <h2>Car market</h2>
-      {loding && <div>...Loading</div>}
-      {error && <div>...error</div>}
-      {Array.isArray(cars) && cars.map(car => 
-        <ul key={car.id}>
-          <li><img src={car.gallery[0].thumb} alt={car.name} /></li>
-          <li>Name: {car.name}</li>
-          <li>price: {car.price}</li>
-        </ul>
-      )}
+    <div className={css.wrapper}>
+      
+      <aside className={css.sidebar}>
+        <h2 className={css.title}>Car market</h2>
+        <h3 className={css.subtitle}>Search car by name</h3>
+
+        <input
+          className={css.searchInput}
+          type="text"
+          placeholder="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+
+        <button
+          type="button"
+          className={css.button}
+          onClick={() => setFilter(query)}
+        >
+          Search car
+        </button>
+      </aside>
+
+      <div className={css.content}>
+        {loading && <div>...Loading</div>}
+        {error && <div>...error</div>}
+
+        {filteredCars.map(car => (
+          <ul className={css.card} key={car.id}>
+            <li>
+              <img src={car.gallery[0].thumb} alt={car.name} />
+            </li>
+            <li>Name: {car.name}</li>
+            <li>Price: {car.price}</li>
+          </ul>
+        ))}
+      </div>
+
     </div>
   )
 }
