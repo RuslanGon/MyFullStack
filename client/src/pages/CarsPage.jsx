@@ -43,7 +43,6 @@ const CarsPage = () => {
       <aside className={css.sidebar}>
         <h2 className={css.title}>Car market</h2>
         <h3 className={css.subtitle}>Search car by name</h3>
-
         <input
           className={css.searchInput}
           type="text"
