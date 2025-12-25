@@ -13,7 +13,7 @@ const SearchFormByName = ({ onSearch }) => {
       <input
         className={css.input}
         type="text"
-        placeholder="search"
+        placeholder="search by name"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
