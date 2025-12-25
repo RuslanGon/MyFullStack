@@ -17,14 +17,15 @@ const isSignedIn = useSelector(selectAuthIsSignedIn)
         <nav className={css.nav}>
           {isSignedIn ? (
             <>
-              <NavLink to="/login" className={navLinkClass}>Login</NavLink>
-              <NavLink to="/register" className={navLinkClass}> Register</NavLink>
+               <NavLink to="/" className={navLinkClass}>Home Page</NavLink>
+              <NavLink to="/cars" className={navLinkClass}>Cars</NavLink>
+              <NavLink to="/contacts" className={navLinkClass}>Contacts </NavLink>
             </>
           ) : (
             <>
-              <NavLink to="/" className={navLinkClass}>Home Page</NavLink>
-              <NavLink to="/cars" className={navLinkClass}>Cars</NavLink>
-              <NavLink to="/contacts" className={navLinkClass}>Contacts </NavLink>
+            <NavLink to="/login" className={navLinkClass}>Login</NavLink>
+            <NavLink to="/register" className={navLinkClass}> Register</NavLink>
+             
             </>
           )}
         </nav>
