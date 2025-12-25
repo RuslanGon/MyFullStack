@@ -1,0 +1,83 @@
+.wrapper {
+    max-width: 320px; /* меньше ширина */
+    margin: 30px auto; /* чуть меньше отступ сверху */
+    padding: 15px; /* меньше padding */
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: #fff;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 15px; /* чуть меньше */
+    font-size: 20px; /* уменьшен размер */
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* меньше расстояние между полями */
+  }
+  
+  .label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px; /* чуть меньше */
+  }
+  
+  .input {
+    padding: 8px 10px; /* меньше padding */
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px; /* уменьшен размер текста */
+    outline: none;
+    margin-top: 5px;
+  }
+  
+  .input:focus {
+    border-color: #558df9;
+  }
+  
+  .button {
+    padding: 8px 14px; /* меньше размер кнопки */
+    border-radius: 8px;
+    border: none;
+    background: #558df9;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background: #3d6fe0;
+  }
+  
+  .loginRedirect {
+    margin-top: 15px;
+    padding: 0; /* убрали фон и внутренний padding */
+    text-align: center;
+    border: none; /* убрали границу */
+    background: none; /* прозрачный фон */
+  }
+  
+  .loginRedirect p {
+    font-size: 14px;
+  }
+  
+  .smallLink {
+    margin-top: 10px;
+    display: inline-block;
+    margin-left: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    background: #558df9;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  
+  .smallLink:hover {
+    background: #3d6fe0;
+  }
+  
