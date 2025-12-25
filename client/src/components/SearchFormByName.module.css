@@ -1,0 +1,41 @@
+.block {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    background: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  .title {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .input:focus {
+    border-color: #558df9;
+  }
+  
+  .button {
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: none;
+    background: #558df9;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background: #3d6fe0;
+  }
+  

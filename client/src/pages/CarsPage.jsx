@@ -3,6 +3,7 @@ import { fetchApiCars } from '../services/api.js';
 import css from './CarsPage.module.css';
 import { Link } from 'react-router-dom';
 import SearchForm from '../components/SearchForm.jsx';
+import SearchFormByName from '../components/SearchFormByName.jsx';
 
 const CarsPage = () => {
   const [cars, setCars] = useState([]);
@@ -30,6 +31,7 @@ const CarsPage = () => {
   }, []);
 
   const handleSearch = () => setFilter(query);
+  console.log();
 
   const filteredCars = cars.filter(car =>
     car.name.toLowerCase().includes(filter.toLowerCase()) &&
@@ -39,19 +41,7 @@ const CarsPage = () => {
   return (
     <div className={css.wrapper}>
       < SearchForm onSearch={setLocationFilter}/>
-      <aside className={css.sidebar}>
-        <h2 className={css.title}>Car market</h2>
-        <h3 className={css.subtitle}>Search car by name</h3>
-        <input
-          className={css.searchInput}
-          type="text"
-          placeholder="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button className={css.button} onClick={handleSearch}>Search car</button>
-      </aside>
-
+      <SearchFormByName onSearch={setFilter} />
       <div className={css.content}>
         {loading && <div>...Loading</div>}
         {error && <div>...error</div>}
