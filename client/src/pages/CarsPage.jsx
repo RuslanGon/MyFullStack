@@ -44,7 +44,7 @@ const CarsPage = () => {
         {error && <div>...error</div>}
         <div className={css.grid}>
           {filteredCars.map(car => (
-          < CarsList car={car} />
+          < CarsList key={car.id} car={car} />
           ))}
         </div>
       </div>

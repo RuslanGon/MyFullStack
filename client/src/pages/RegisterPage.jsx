@@ -1,16 +1,20 @@
-import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import css from './RegisterPage.module.css';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { apiRegister } from '../redux/auth/operations.js';
 
 const RegisterPage = () => {
+
+const dispatch = useDispatch();
+
   return (
     <div className={css.wrapper}>
       <h1 className={css.title}>Register Form</h1>
       <Formik
         initialValues={{ name: "", email: "", password: "" }}
         onSubmit={async (values) => {
-          await new Promise((resolve) => setTimeout(resolve, 500));
+          dispatch(apiRegister(values))
           console.log(values);
         }}
       >
@@ -46,7 +50,7 @@ const RegisterPage = () => {
           </label>
 
           <button className={css.button} type="submit">
-            Submit
+            Create new user
           </button>
         </Form>
       </Formik>

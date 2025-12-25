@@ -36,7 +36,7 @@ const LoginPage = () => {
           </label>
 
           <button className={css.button} type="submit">
-            Submit
+            Login user
           </button>
         </Form>
       </Formik>
