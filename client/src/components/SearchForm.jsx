@@ -20,7 +20,7 @@ const SearchForm = ({ onSearch }) => {
       />
 
       <button type="button" onClick={onClickButton} className={css.button}>
-        Search
+        Search car
       </button>
     </div>
   );
