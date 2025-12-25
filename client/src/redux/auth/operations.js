@@ -35,3 +35,16 @@ export const apiLogin = createAsyncThunk('auth/login', async (forData, thunApi) 
         return thunApi.rejectWithValue(error.message)
     }
 })
+
+export const apiRefreshUser = createAsyncThunk('auth/refresh', async (_, thunApi) => {
+    try {
+        const state = thunApi.getState()
+        const token = state.auth.token
+        setToken(token)
+        const {data} = await instance.get('/users/current')
+        console.log(data);
+        return data
+    } catch (error) {
+        return thunApi.rejectWithValue(error.message)
+    }
+})

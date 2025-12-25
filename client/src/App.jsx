@@ -8,8 +8,18 @@ import RegisterPage from "./pages/RegisterPage.jsx";
 import Layout from "./components/Layout.jsx";
 import CarPageDetails from "./pages/CarPageDetails.jsx";
 import ContactsPage from "./pages/ContactsPage.jsx";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { apiRefreshUser } from "./redux/auth/operations.js";
 
 function App() {
+
+const dispatsh = useDispatch()  
+
+useEffect(() => {
+  dispatsh(apiRefreshUser())
+}, [dispatsh])
+
   return (
     <Layout>
       <Routes>
@@ -19,7 +29,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/contacts" element={<ContactsPage />} />
-
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
