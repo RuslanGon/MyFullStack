@@ -1,0 +1,40 @@
+.card {
+    list-style: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    background: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .card img {
+    max-width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  
+  .card li {
+    font-size: 16px;
+    margin: 4px 0;
+  }
+  
+  .button {
+    display: inline-block;
+    padding: 8px 12px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: none;
+    background: #558df9;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .button:hover {
+    background: #3d6fe0;
+  }
+  

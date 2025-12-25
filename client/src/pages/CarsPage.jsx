@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { fetchApiCars } from '../services/api.js';
 import css from './CarsPage.module.css';
-import { Link } from 'react-router-dom';
 import SearchForm from '../components/SearchForm.jsx';
 import SearchFormByName from '../components/SearchFormByName.jsx';
+import CarsList from '../components/CarsList.jsx';
 
 const CarsPage = () => {
   const [cars, setCars] = useState([]);
@@ -39,24 +39,12 @@ const CarsPage = () => {
       <SearchFormByName onSearch={setFilter} />
         <SearchForm onSearch={setLocationFilter} />
       </div>
-
       <div className={css.content}>
         {loading && <div>...Loading</div>}
         {error && <div>...error</div>}
         <div className={css.grid}>
           {filteredCars.map(car => (
-            <ul key={car.id} className={css.card}>
-              <li>
-                {car.gallery?.[0] && <img src={car.gallery[0].thumb} alt={car.name} />}
-              </li>
-              <li>Name: {car.name}</li>
-              <li>Price: {car.price}</li>
-              <li>
-                <Link to={`/cars/${car.id}`} className={css.button}>
-                  View Details
-                </Link>
-              </li>
-            </ul>
+          < CarsList car={car} />
           ))}
         </div>
       </div>
