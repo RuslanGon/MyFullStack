@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchApiCars } from '../services/api.js';
 import css from './CarsPage.module.css';
 import { Link } from 'react-router-dom';
+import SearchForm from '../components/SearchForm.jsx';
 
 const CarsPage = () => {
   const [cars, setCars] = useState([]);
@@ -9,6 +10,8 @@ const CarsPage = () => {
   const [error, setError] = useState(false);
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('');
+  const [locationFilter, setLocationFilter] = useState('');
+
 
   useEffect(() => {
     const loadCars = async () => {
@@ -29,11 +32,13 @@ const CarsPage = () => {
   const handleSearch = () => setFilter(query);
 
   const filteredCars = cars.filter(car =>
-    car.name.toLowerCase().includes(filter.toLowerCase())
+    car.name.toLowerCase().includes(filter.toLowerCase()) &&
+    car.location.toLowerCase().includes(locationFilter.toLowerCase())
   );
 
   return (
     <div className={css.wrapper}>
+      < SearchForm onSearch={setLocationFilter}/>
       <aside className={css.sidebar}>
         <h2 className={css.title}>Car market</h2>
         <h3 className={css.subtitle}>Search car by name</h3>
