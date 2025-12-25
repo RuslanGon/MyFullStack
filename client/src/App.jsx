@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import Layout from "./components/Layout.jsx";
 import CarPageDetails from "./pages/CarPageDetails.jsx";
+import ContactsPage from "./pages/ContactsPage.jsx";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Route path="/cars/:id" element={<CarPageDetails />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
