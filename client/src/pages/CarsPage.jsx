@@ -9,10 +9,8 @@ const CarsPage = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
-
 
   useEffect(() => {
     const loadCars = async () => {
@@ -30,9 +28,6 @@ const CarsPage = () => {
     loadCars();
   }, []);
 
-  const handleSearch = () => setFilter(query);
-  console.log();
-
   const filteredCars = cars.filter(car =>
     car.name.toLowerCase().includes(filter.toLowerCase()) &&
     car.location.toLowerCase().includes(locationFilter.toLowerCase())
@@ -40,15 +35,17 @@ const CarsPage = () => {
 
   return (
     <div className={css.wrapper}>
-      < SearchForm onSearch={setLocationFilter}/>
+      <div className={css.sidebarWrapper}>
       <SearchFormByName onSearch={setFilter} />
+        <SearchForm onSearch={setLocationFilter} />
+      </div>
+
       <div className={css.content}>
         {loading && <div>...Loading</div>}
         {error && <div>...error</div>}
-
-        {filteredCars.map(car => (
-          <div key={car.id}>
-            <ul className={css.card}>
+        <div className={css.grid}>
+          {filteredCars.map(car => (
+            <ul key={car.id} className={css.card}>
               <li>
                 {car.gallery?.[0] && <img src={car.gallery[0].thumb} alt={car.name} />}
               </li>
@@ -60,8 +57,8 @@ const CarsPage = () => {
                 </Link>
               </li>
             </ul>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

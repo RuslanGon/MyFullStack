@@ -11,14 +11,17 @@
     margin-bottom: 15px;
   }
   
+  /* Инпут теперь такой же по высоте и ширине, как кнопка */
   .input {
     width: 100%;
-    padding: 10px 12px;
+    height: 40px; /* фиксированная высота как у кнопки */
+    padding: 0 18px; /* горизонтальные отступы */
     border-radius: 10px;
     border: 1px solid #ccc;
     outline: none;
     margin-bottom: 10px;
     font-size: 16px;
+    box-sizing: border-box;
   }
   
   .input:focus {
@@ -26,7 +29,8 @@
   }
   
   .button {
-    padding: 10px 18px;
+    width: 100%; /* совпадает с инпутом */
+    height: 40px; /* та же высота */
     border-radius: 10px;
     border: none;
     background: #558df9;
