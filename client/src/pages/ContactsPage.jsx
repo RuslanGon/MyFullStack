@@ -39,15 +39,12 @@ const ContactsPage = () => {
       <li key={contact.id} className={css.item}>
         <div className={css.nameWrapper}>
           <p className={css.name}>Name: {contact.name}</p>
-          <button
-            onClick={() => handleDelete(contact.id)}
-            type="button"
-            className={css.deleteButton}
-          >
+          <button onClick={() => handleDelete(contact.id)} type="button" className={css.deleteButton}>
             delete
           </button>
         </div>
         <p className={css.number}>Number: {contact.number}</p>
+        <p className={css.number}>Id: {contact.id}</p>
       </li>
     ))}
 </ul>
