@@ -39,3 +39,20 @@
     padding: 24px 32px;
   }
   
+  .nav {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;           
+  }
+  
+  .navLinks {
+    display: flex;
+    gap: 24px;
+  }
+  
+  .userGreeting p {
+    margin: 0;
+    color: #fff;
+    font-weight: 500;
+  }
+  
