@@ -33,17 +33,24 @@ const ContactsPage = () => {
         <p className={css.status}>Нет контактов</p>
       )}
 
-      <ul className={css.list}>
-        {Array.isArray(contacts) &&
-          contacts.map((contact) => (
-            <li key={contact.id} className={css.item}>
-              <p className={css.name}>Name: {contact.name} 
-              <button onClick={() => handleDelete(contact.id)} type="bttton">delete</button>
-              </p>
-              <p className={css.number}>Number: {contact.number}</p>
-            </li>
-          ))}
-      </ul>
+<ul className={css.list}>
+  {Array.isArray(contacts) &&
+    contacts.map((contact) => (
+      <li key={contact.id} className={css.item}>
+        <div className={css.nameWrapper}>
+          <p className={css.name}>Name: {contact.name}</p>
+          <button
+            onClick={() => handleDelete(contact.id)}
+            type="button"
+            className={css.deleteButton}
+          >
+            delete
+          </button>
+        </div>
+        <p className={css.number}>Number: {contact.number}</p>
+      </li>
+    ))}
+</ul>
     </div>
   );
 };

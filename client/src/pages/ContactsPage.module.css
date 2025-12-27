@@ -44,3 +44,50 @@
     color: #555;
   }
   
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+  }
+  
+  .nameWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .name {
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .number {
+    margin: 5px 0 0 0;
+  }
+  
+  .deleteButton {
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: none;
+    background: #f44336;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .deleteButton:hover {
+    background: #d32f2f;
+  }
+  
