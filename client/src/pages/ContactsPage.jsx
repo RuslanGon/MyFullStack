@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectContacts,
-  selectContactsIsError,
-  selectContactsIsLoading,
-} from "../redux/contacts/selectors.js";
-import { apiGetContacts } from "../redux/contacts/operations.js";
+import css from "./ContactsPage.module.css";
+import {selectContacts, selectContactsIsError, selectContactsIsLoading,} 
+from "../redux/contacts/selectors.js";
+import { apiDeleteContact, apiGetContacts } from "../redux/contacts/operations.js";
 import AddContacts from "../components/AddContacts.jsx";
 
 const ContactsPage = () => {
@@ -18,21 +16,34 @@ const ContactsPage = () => {
     dispatch(apiGetContacts());
   }, [dispatch]);
 
+  const handleDelete = (id) => {
+    dispatch(apiDeleteContact(id))
+  }
+
   return (
-    <div>
-      {isLoading && <div>...Loading</div>}
-      {isError && <div>...error</div>}
+    <div className={css.wrapper}>
+      <h2 className={css.title}>Contacts</h2>
+
+      {isLoading && <div className={css.status}>...Loading</div>}
+      {isError && <div className={css.status}>...Error</div>}
+
       <AddContacts />
-      {Array.isArray(contacts) && contacts.length === 0 && <p>Нет контактов</p>}
-      {Array.isArray(contacts) &&
-        contacts.map((contact) => (
-          <ul key={contact.id}>
-            <li>
-              <p> Name:{contact.name}</p>
-              <p> Nuumber:{contact.number}</p>
+
+      {Array.isArray(contacts) && contacts.length === 0 && (
+        <p className={css.status}>Нет контактов</p>
+      )}
+
+      <ul className={css.list}>
+        {Array.isArray(contacts) &&
+          contacts.map((contact) => (
+            <li key={contact.id} className={css.item}>
+              <p className={css.name}>Name: {contact.name} 
+              <button onClick={() => handleDelete(contact.id)} type="bttton">delete</button>
+              </p>
+              <p className={css.number}>Number: {contact.number}</p>
             </li>
-          </ul>
-        ))}
+          ))}
+      </ul>
     </div>
   );
 };
