@@ -49,3 +49,13 @@ export const apiRefreshUser = createAsyncThunk('auth/refresh', async (_, thunApi
         return thunApi.rejectWithValue(error.message)
     }
 })
+
+export const apiLogout = createAsyncThunk("auth/logout", async (_, thunApi) => {
+  try {
+    await instance.post("/users/logout");
+    clearerToken();
+    return;
+  } catch (error) {
+    return thunApi.rejectWithValue(error.message);
+  }
+});

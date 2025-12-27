@@ -1,16 +1,21 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import css from './Layout.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectAuthIsSignedIn, selectAuthUserData } from '../redux/auth/selectors.js';
+import { apiLogout } from '../redux/auth/operations.js';
 
 const navLinkClass = ({ isActive }) => 
   isActive ? `${css['nav-link']} ${css.active}` : css['nav-link'];
 
 const Layout = ({ children }) => {
-
+  const dispatch = useDispatch()
 const isSignedIn = useSelector(selectAuthIsSignedIn)  
 const userData = useSelector(selectAuthUserData)
+
+const handleLogout = () => {
+dispatch(apiLogout())
+}
 
   return (
     <div className={css.layout}>
@@ -25,6 +30,7 @@ const userData = useSelector(selectAuthUserData)
             </div>
             <div className={css.userGreeting}>
               <p>Hello, {userData.name}</p>
+              <button onClick={handleLogout} type='button'>Logout</button>
             </div>
           </>
         ) : (

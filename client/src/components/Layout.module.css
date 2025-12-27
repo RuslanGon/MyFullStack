@@ -56,3 +56,27 @@
     font-weight: 500;
   }
   
+  .userGreeting {
+    display: flex;
+    gap: 24px; /* расстояние между приветствием и кнопкой */
+    align-items: center; /* выравнивание по вертикали */
+  }
+  
+  
+  /* Стили для кнопки как у ссылок */
+  .userGreeting button {
+    background-color: transparent;
+    color: #ccc;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .userGreeting button:hover {
+    background-color: #2e2e48;
+    color: #fff;
+  }
+  
