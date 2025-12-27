@@ -1,7 +1,6 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
-import css from './RegisterPage.module.css';
-import { Link } from 'react-router-dom';
+import css from '../pages/RegisterPage.module.css'
 import { useDispatch } from 'react-redux';
 import { apiAddNewContact } from '../redux/contacts/operations.js';
 
@@ -30,7 +29,6 @@ const dispatch = useDispatch()
               placeholder="Enter your name"
             />
           </label>
-
           <label className={css.label}>
             Number
             <Field

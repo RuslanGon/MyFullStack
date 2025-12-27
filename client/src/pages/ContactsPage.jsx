@@ -6,6 +6,7 @@ import {
   selectContactsIsLoading,
 } from "../redux/contacts/selectors.js";
 import { apiGetContacts } from "../redux/contacts/operations.js";
+import AddContacts from "../components/AddContacts.jsx";
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const ContactsPage = () => {
     <div>
       {isLoading && <div>...Loading</div>}
       {isError && <div>...error</div>}
+      <AddContacts />
       {Array.isArray(contacts) && contacts.length === 0 && <p>Нет контактов</p>}
       {Array.isArray(contacts) &&
         contacts.map((contact) => (
