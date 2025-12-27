@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { fetchApiCarById, fetchApiCars } from "../../services/api.js";
 
 export const apiGetCars = createAsyncThunk(
-  "auth/refresh",
+  "get/cars",
   async (_, thunApi) => {
     try {
       const data = await fetchApiCars();
