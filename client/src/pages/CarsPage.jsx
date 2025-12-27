@@ -1,34 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import { fetchApiCars } from '../services/api.js';
+import { useDispatch, useSelector } from "react-redux";
 import css from './CarsPage.module.css';
 import SearchForm from '../components/SearchForm.jsx';
 import SearchFormByName from '../components/SearchFormByName.jsx';
 import CarsList from '../components/CarsList.jsx';
+import { selectCarsCars, selectCarsFilter, selectCarsIsError, selectCarsIsLoading } from '../redux/cars/selectors.js';
+import { apiGetCars } from '../redux/cars/operations.js';
+import { setFilter } from "../redux/cars/carsSlice";
+
 
 const CarsPage = () => {
-  const [cars, setCars] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [filter, setFilter] = useState('');
+  const dispatch = useDispatch();
+  const cars = useSelector(selectCarsCars) || [];
+  const loading = useSelector(selectCarsIsLoading)
+  const error = useSelector(selectCarsIsError)
+  const filter = useSelector(selectCarsFilter)
+  // const [filter, setFilter] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
 
-  useEffect(() => {
-    const loadCars = async () => {
-      setLoading(true);
-      try {
-        const data = await fetchApiCars();
-        setCars(data.items); 
-      } catch (error) {
-        console.error(error);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadCars();
-  }, []);
 
-  const filteredCars = cars.filter(car =>
+  // useEffect(() => {
+  //   const loadCars = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const data = await fetchApiCars();
+  //       console.log(data.items);
+  //       setCars(data.items); 
+       
+  //     } catch (error) {
+  //       console.error(error);
+  //       setError(true);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   loadCars();
+  // }, []);
+
+  useEffect(() => {
+    dispatch(apiGetCars())
+  }, [dispatch])
+
+  const filteredCars = (cars || []).filter(car =>
     car.name.toLowerCase().includes(filter.toLowerCase()) &&
     car.location.toLowerCase().includes(locationFilter.toLowerCase())
   );
@@ -36,7 +49,7 @@ const CarsPage = () => {
   return (
     <div className={css.wrapper}>
       <div className={css.sidebarWrapper}>
-      <SearchFormByName onSearch={setFilter} />
+      <SearchFormByName onSearch={(value) => dispatch(setFilter(value))} />
         <SearchForm onSearch={setLocationFilter} />
       </div>
       <div className={css.content}>

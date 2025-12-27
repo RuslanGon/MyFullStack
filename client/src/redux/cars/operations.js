@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { fetchApiCars } from "../../services/api.js";
+import { fetchApiCarById, fetchApiCars } from "../../services/api.js";
 
 export const apiGetCars = createAsyncThunk(
   "auth/refresh",
@@ -11,4 +11,16 @@ export const apiGetCars = createAsyncThunk(
       return thunApi.rejectWithValue(error.message);
     }
   }
+);
+
+export const apiCarsByQuery = createAsyncThunk(
+    "cars/query",
+    async (id, thunkApi) => {
+      try {
+        const data = await fetchApiCarById(id);
+        return data;
+      } catch (error) {
+        return thunkApi.rejectWithValue(error.message);
+      }
+    }
 );
