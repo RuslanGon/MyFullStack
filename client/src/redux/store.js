@@ -13,6 +13,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // localStorage
+import { contactsReducer } from "./contacts/contactsSlice.js";
 
 // Настройка persist для auth
 const authPersistConfig = {
@@ -27,6 +28,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     cars: carsReducer,
+    contacts: contactsReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
