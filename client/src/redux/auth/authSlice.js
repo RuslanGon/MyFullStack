@@ -65,7 +65,7 @@ const INITIAL_STATE = {
           return INITIAL_STATE
           })
           .addCase(apiLogout.rejected, (state) => {
-            state.isError = true
+           state.isError = true
           })
    
   });
