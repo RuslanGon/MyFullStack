@@ -36,6 +36,7 @@ export const apiLogin = createAsyncThunk('auth/login', async (forData, thunApi) 
     }
 })
 
+
 export const apiRefreshUser = createAsyncThunk('auth/refresh', async (_, thunApi) => {
     try {
         const state = thunApi.getState()
