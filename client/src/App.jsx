@@ -11,6 +11,8 @@ import ContactsPage from "./pages/ContactsPage.jsx";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { apiRefreshUser } from "./redux/auth/operations.js";
+import RestrictedRoute from "./components/RestrictedRoute.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 
 function App() {
 
@@ -24,11 +26,11 @@ useEffect(() => {
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/cars" element={<CarsPage />} />
-        <Route path="/cars/:id" element={<CarPageDetails />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/login" element={<RestrictedRoute><LoginPage /></RestrictedRoute>} />
+        <Route path="/register" element={<RestrictedRoute><RegisterPage /></RestrictedRoute>} />
+        <Route path="/cars" element={<PrivateRoute><CarsPage /> </PrivateRoute>} />
+        <Route path="/cars/:id" element={<PrivateRoute><CarPageDetails /> </PrivateRoute>} />
+        <Route path="/contacts" element={<PrivateRoute><ContactsPage /> </PrivateRoute>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
