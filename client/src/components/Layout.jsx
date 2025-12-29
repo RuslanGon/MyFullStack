@@ -27,6 +27,8 @@ dispatch(apiLogout())
               <NavLink to="/" className={navLinkClass}>Home Page</NavLink>
               <NavLink to="/cars" className={navLinkClass}>Cars</NavLink>
               <NavLink to="/contacts" className={navLinkClass}>Contacts</NavLink>
+              <NavLink to="/prac" className={navLinkClass}>Practick</NavLink>
+
             </div>
             <div className={css.userGreeting}>
               <p>Hello, {userData.name}</p>

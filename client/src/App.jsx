@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { apiRefreshUser } from "./redux/auth/operations.js";
 import RestrictedRoute from "./components/RestrictedRoute.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import PractPage from "./pages/PractPage.jsx";
 
 function App() {
 
@@ -31,6 +32,8 @@ useEffect(() => {
         <Route path="/cars" element={<PrivateRoute><CarsPage /> </PrivateRoute>} />
         <Route path="/cars/:id" element={<PrivateRoute><CarPageDetails /> </PrivateRoute>} />
         <Route path="/contacts" element={<PrivateRoute><ContactsPage /> </PrivateRoute>} />
+        <Route path="/prac" element={<PrivateRoute><PractPage /> </PrivateRoute>} />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
