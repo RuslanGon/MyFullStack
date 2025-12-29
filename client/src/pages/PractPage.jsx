@@ -6,7 +6,7 @@ const PractPage = () => {
   const [filter, setFilter] = useState('')
   const [query, setQuery] = useState('')
 
-  const onChangeFilter = (e) => {
+  const onChangeFilter = (e) => { 
     setFilter(e.target.value)
   }
 
@@ -21,7 +21,7 @@ const PractPage = () => {
 
   useEffect(() => {
     async function fetchBus() {
-      const { data } = await axios.get("https://66b1f8e71ca8ad33d4f5f63e.mockapi.io/campers")
+      const  {data}  = await axios.get("https://66b1f8e71ca8ad33d4f5f63e.mockapi.io/campers")
       setBuss(data.items)   
     }
     fetchBus()
@@ -41,14 +41,7 @@ const PractPage = () => {
 
       {filteredBus.map(bus => (
         <ul key={bus.id}>
-          <li>
-            <img 
-              src={bus.gallery?.[0]?.thumb} 
-              alt={bus.name} 
-              height={25} 
-              width={25} 
-            />
-          </li>
+          <li><img src={bus.gallery?.[0]?.thumb} alt={bus.name} height={25} width={25}/></li>
           <li>Name: {bus.name}</li>
           <li>Price: {bus.price}</li>
         </ul>
