@@ -1,2 +1,4 @@
-const message = 'Hello node'
-console.log(message);
+import express from 'express';
+
+
+const app = express()
