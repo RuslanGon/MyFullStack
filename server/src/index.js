@@ -1,2 +1,2 @@
-const message = 'Hello word'
+const message = 'Hello node'
 console.log(message);
