@@ -8,7 +8,7 @@ export default defineConfig([
     plugins: { js },
     extends: ["js/recommended"],
     languageOptions: {
-      sourceType: "module",       // ESM
+      sourceType: "module",
       globals: globals.node
     },
     rules: {
