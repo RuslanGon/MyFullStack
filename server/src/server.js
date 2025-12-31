@@ -6,6 +6,7 @@ import { env } from './utils/env.js';
 import { ENV_VARS } from './constants/index.js';
 import { errorHandlerMiddleware } from './middlewars/errorHandlerMiddleware.js';
 import { notFoundMiddleware } from './middlewars/notFoundMiddleware.js';
+import { getAllStudents } from './services/students.js';
 
 
 export const startServer = () => {
@@ -24,10 +25,17 @@ export const startServer = () => {
   app.use(cors());
 
 
-
-  app.get('/', (req, res) => {
-    res.send('Hello Ruslan');
+app.get('/students', async(req, res) => {
+  const students = await getAllStudents();
+  res.json({
+status: 200,
+message: 'get all students',
+data: students
   });
+});
+
+app.get('/students/studentId', (req, res, next) => {});
+
 
   app.use(notFoundMiddleware);
   app.use(errorHandlerMiddleware);
