@@ -6,7 +6,7 @@ import { env } from './utils/env.js';
 import { ENV_VARS } from './constants/index.js';
 import { errorHandlerMiddleware } from './middlewars/errorHandlerMiddleware.js';
 import { notFoundMiddleware } from './middlewars/notFoundMiddleware.js';
-import { getAllStudents } from './services/students.js';
+import { getAllStudents, getStudentById } from './services/students.js';
 
 
 export const startServer = () => {
@@ -34,7 +34,15 @@ data: students
   });
 });
 
-app.get('/students/studentId', (req, res, next) => {});
+app.get('/students/:studentId',async  (req, res, next) => {
+  const id =req.params.studentId;
+  const student = await getStudentById(id);
+  res.json({
+    status: 200,
+    message: `get student by id ${id} `,
+    data: student
+      });
+});
 
 
   app.use(notFoundMiddleware);
