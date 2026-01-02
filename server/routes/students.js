@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { getAllStudentsController, getStudentByIdController } from "../controllers/students.js";
+import { ctrllWrapper } from "../src/utils/ctrlWrapper.js";
 
 
 const studentsRouter = Router();
 
-studentsRouter.get('/students', getAllStudentsController);
+studentsRouter.get('/students', ctrllWrapper(getAllStudentsController));
 
-studentsRouter.get('/students/:studentId', getStudentByIdController);
+studentsRouter.get('/students/:studentId', ctrllWrapper(getStudentByIdController));
 
 export default studentsRouter;

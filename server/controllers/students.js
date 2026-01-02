@@ -1,28 +1,44 @@
-import {getAllStudents, getStudentById} from '../src/services/students.js';
+import mongoose from 'mongoose';
+import { getAllStudents, getStudentById } from '../src/services/students.js';
 
-export const getAllStudentsController = async(req, res) => {
+export const getAllStudentsController = async (req, res, next) => {
+  try {
     const students = await getAllStudents();
     res.json({
-  status: 200,
-  message: 'get all students',
-  data: students
+      status: 200,
+      message: 'get all students',
+      data: students,
     });
-  };
+  } catch (error) {
+    next(error);
+  }
+};
 
-export const getStudentByIdController = async  (req, res, next) => {
-    const id =req.params.studentId;
-    const student = await getStudentById(id);
+export const getStudentByIdController = async (req, res, next) => {
+  try {
+    const { studentId } = req.params;
 
-    if(!student) {
+    if (!mongoose.isValidObjectId(studentId)) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Invalid student id',
+      });
+    }
+
+    const student = await getStudentById(studentId);
+    if (!student) {
       return res.status(404).json({
         status: 404,
-        message: `get student by id ${id} not found `,
+        message: 'Student not found',
       });
     }
 
     res.json({
       status: 200,
-      message: `get student by id ${id} `,
-      data: student
-        });
-  };
+      message: `get student by id ${studentId}`,
+      data: student,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
