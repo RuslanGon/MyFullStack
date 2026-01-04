@@ -18,5 +18,5 @@ export const deleteStudent = async (id) => {
 
 
 export const patchStudent = async (id, payload) => {
-  return Student.findByIdAndUpdate(id,payload);
+  return Student.findByIdAndUpdate(id, payload);
 };
