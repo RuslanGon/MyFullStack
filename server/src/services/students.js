@@ -7,3 +7,7 @@ export const getAllStudents = async () => {
 export const getStudentById = async (id) => {
   return await Student.findById(id);
 };
+
+export const createStudent = async (payload) => {
+  return await Student.create(payload);
+};
