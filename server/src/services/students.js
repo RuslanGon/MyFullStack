@@ -20,11 +20,11 @@ export const deleteStudent = async (id) => {
 
 export const upsertStudent = async (id, payload, options = {}) => {
   const student = await Student.findByIdAndUpdate(id, payload, {
-    new: true,          // вернуть обновлённый документ
-    runValidators: true,// проверка schema
-    upsert: true,       // создать, если нет
+    new: true,
+    runValidators: true,
+    upsert: true,
     ...options
   });
 
-  return student; // всегда объект документа
+  return student;
 };
