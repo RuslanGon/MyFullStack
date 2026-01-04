@@ -1,4 +1,4 @@
-import createHttpError from 'http-errors';
+
 import { Student } from '../db/models/student.js';
 
 export const getAllStudents = async () => {
@@ -18,15 +18,13 @@ export const deleteStudent = async (id) => {
 };
 
 
-export const upsertStudent = async (id, payload) => {
+export const upsertStudent = async (id, payload, options = {}) => {
   const student = await Student.findByIdAndUpdate(id, payload, {
-    new: true,
-    runValidators: true,
+    new: true,          // вернуть обновлённый документ
+    runValidators: true,// проверка schema
+    upsert: true,       // создать, если нет
+    ...options
   });
 
-  if (!student) {
-    throw createHttpError(404, 'Student not found');
-  }
-
-  return student;
+  return student; // всегда объект документа
 };

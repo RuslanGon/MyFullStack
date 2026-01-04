@@ -87,7 +87,7 @@ export const patchStudentController = async (req, res, next) => {
     });
   }
 
-  const student = await patchStudent(studentId, body);
+  const student = await upsertStudent(studentId, body);
 
   if (!student) {
     return res.status(404).json({
@@ -107,7 +107,6 @@ export const putStudentController = async (req, res, next) => {
   const { studentId } = req.params;
   const { body } = req;
 
-  // ✅ Проверка на валидный ObjectId
   if (!mongoose.isValidObjectId(studentId)) {
     return res.status(400).json({
       status: 400,
@@ -115,18 +114,11 @@ export const putStudentController = async (req, res, next) => {
     });
   }
 
-  const student = await upsertStudent(studentId, body);
-
-  if (!student) {
-    return res.status(404).json({
-      status: 404,
-      message: 'Student not found',
-    });
-  }
+  const student = await upsertStudent(studentId, body, { upsert: true });
 
   res.status(200).json({
     status: 200,
-    message: 'Student updated',
+    message: 'Student updated or created',
     data: student,
   });
 };
