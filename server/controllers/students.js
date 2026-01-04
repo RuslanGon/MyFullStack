@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { createStudent, deleteStudent, getAllStudents, getStudentById } from '../src/services/students.js';
+import { createStudent, deleteStudent, getAllStudents, getStudentById, patchStudent } from '../src/services/students.js';
 
 
 export const getAllStudentsController = async (req, res, next) => {
@@ -71,6 +71,26 @@ export const deleteStudentByIdController = async (req, res, next) => {
   res.status(200).json({
     status: 200,
     message: 'Student removed',
+    data: student,
+  });
+};
+
+export const patchStudentController = async (req, res, next) => {
+  const { studentId } = req.params;
+  const { body } = req;
+
+  const student = await patchStudent(studentId, body);
+
+  if (!student) {
+    return res.status(404).json({
+      status: 404,
+      message: 'Student not found',
+    });
+  }
+
+  res.status(200).json({
+    status: 200,
+    message: 'Student updated',
     data: student,
   });
 };
