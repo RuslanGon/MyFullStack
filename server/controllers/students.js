@@ -44,7 +44,7 @@ export const getStudentByIdController = async (req, res, next) => {
   }
 };
 
-export const postStudentController = async (req, res, next) => {
+export const createStudentController = async (req, res, next) => {
   const { body } = req;
 
   const student = await createStudent(body);
