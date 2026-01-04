@@ -4,6 +4,7 @@ import { ctrllWrapper } from "../src/utils/ctrlWrapper.js";
 import { validateMongoId } from "../src/middlewars/validateMongoId.js";
 import { validateBody } from "../src/middlewars/validateBody.js";
 import { createStudentSchema } from "../validationSchema/createStudentSchema.js";
+import { updateStudentSchema } from "../validationSchema/updateStudentSchema.js";
 
 
 const studentsRouter = Router();
@@ -28,12 +29,14 @@ studentsRouter.delete(
 
 studentsRouter.patch(
   '/students/:studentId',
+  validateBody(updateStudentSchema),
   validateMongoId,
   ctrllWrapper(patchStudentController),
 );
 
 studentsRouter.put(
   '/students/:studentId',
+  validateBody(createStudentSchema),
   validateMongoId,
   ctrllWrapper(putStudentController),
 );
