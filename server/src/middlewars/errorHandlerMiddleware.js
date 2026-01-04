@@ -1,16 +1,17 @@
 import createHttpError from 'http-errors';
 
 export const errorHandlerMiddleware = (error, req, res, next) => {
-  let status = 500;
-  let message = 'Internal server error';
-
   if (createHttpError.isHttpError(error)) {
-    status = error.status;
-    message = error.message;
+    return res.status(error.status).json({
+      status: error.status,
+      message: error.message,
+      ...(error.details && { details: error.details }),
+    });
   }
 
-  res.status(status).json({
-    status,
-    message,
+  res.status(500).json({
+    status: 500,
+    message: 'Internal server error',
   });
 };
+
