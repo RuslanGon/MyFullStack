@@ -79,6 +79,14 @@ export const patchStudentController = async (req, res, next) => {
   const { studentId } = req.params;
   const { body } = req;
 
+  // ✅ Проверка на валидный ObjectId
+  if (!mongoose.isValidObjectId(studentId)) {
+    return res.status(400).json({
+      status: 400,
+      message: 'Invalid student id',
+    });
+  }
+
   const student = await patchStudent(studentId, body);
 
   if (!student) {

@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import { Student } from '../db/models/student.js';
 
 export const getAllStudents = async () => {
@@ -18,5 +19,14 @@ export const deleteStudent = async (id) => {
 
 
 export const patchStudent = async (id, payload) => {
-  return Student.findByIdAndUpdate(id, payload);
+  const student = await Student.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!student) {
+    throw createHttpError(404, 'Student not found');
+  }
+
+  return student;
 };
