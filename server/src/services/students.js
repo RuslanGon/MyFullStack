@@ -18,7 +18,7 @@ export const deleteStudent = async (id) => {
 };
 
 
-export const patchStudent = async (id, payload) => {
+export const upsertStudent = async (id, payload) => {
   const student = await Student.findByIdAndUpdate(id, payload, {
     new: true,
     runValidators: true,

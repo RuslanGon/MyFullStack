@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createStudentController, deleteStudentByIdController, getAllStudentsController, getStudentByIdController, patchStudentController,  } from "../controllers/students.js";
+import { createStudentController, deleteStudentByIdController, getAllStudentsController, getStudentByIdController, patchStudentController, putStudentController,  } from "../controllers/students.js";
 import { ctrllWrapper } from "../src/utils/ctrlWrapper.js";
 
 
@@ -14,6 +14,9 @@ studentsRouter.post('/students', ctrllWrapper(createStudentController));
 studentsRouter.delete('/students/:studentId', ctrllWrapper(deleteStudentByIdController));
 
 studentsRouter.patch('/students/:studentId', ctrllWrapper(patchStudentController));
+
+studentsRouter.put('/students/:studentId', ctrllWrapper(putStudentController));
+
 
 
 

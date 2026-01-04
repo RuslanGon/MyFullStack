@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { createStudent, deleteStudent, getAllStudents, getStudentById, patchStudent } from '../src/services/students.js';
+import { createStudent, deleteStudent, getAllStudents, getStudentById, upsertStudent,  } from '../src/services/students.js';
 
 
 export const getAllStudentsController = async (req, res, next) => {
@@ -88,6 +88,34 @@ export const patchStudentController = async (req, res, next) => {
   }
 
   const student = await patchStudent(studentId, body);
+
+  if (!student) {
+    return res.status(404).json({
+      status: 404,
+      message: 'Student not found',
+    });
+  }
+
+  res.status(200).json({
+    status: 200,
+    message: 'Student updated',
+    data: student,
+  });
+};
+
+export const putStudentController = async (req, res, next) => {
+  const { studentId } = req.params;
+  const { body } = req;
+
+  // ✅ Проверка на валидный ObjectId
+  if (!mongoose.isValidObjectId(studentId)) {
+    return res.status(400).json({
+      status: 400,
+      message: 'Invalid student id',
+    });
+  }
+
+  const student = await upsertStudent(studentId, body);
 
   if (!student) {
     return res.status(404).json({
