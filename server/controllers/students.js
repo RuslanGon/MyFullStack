@@ -6,9 +6,7 @@ import { parsePaginationParams } from '../src/utils/parsePaginationParams.js';
 export const getAllStudentsController = async (req, res, next) => {
   try {
     const { page, perPage } = parsePaginationParams(req.query);
-
     const students = await getAllStudents({ page, perPage });
-
     res.json({
       status: 200,
       message: 'get all students',
