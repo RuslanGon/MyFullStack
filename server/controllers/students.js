@@ -1,10 +1,14 @@
 import mongoose from 'mongoose';
 import { createStudent, deleteStudent, getAllStudents, getStudentById, upsertStudent,  } from '../src/services/students.js';
+import { parsePaginationParams } from '../src/utils/parsePaginationParams.js';
 
 
 export const getAllStudentsController = async (req, res, next) => {
   try {
-    const students = await getAllStudents();
+    const { page, perPage } = parsePaginationParams(req.query);
+
+    const students = await getAllStudents({ page, perPage });
+
     res.json({
       status: 200,
       message: 'get all students',
