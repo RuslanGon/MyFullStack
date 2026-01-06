@@ -5,18 +5,46 @@ export const getAllStudents = async ({
   perPage = 10,
   sortBy = 'createdAt',
   sortOrder = 'asc',
-}) => {
-  const skip = (page - 1) * perPage;
+  filters = {},
+  all = false, // новый флаг
+} = {}) => {
   const order = sortOrder === 'desc' ? -1 : 1;
 
-  const [students, total] = await Promise.all([
-    Student.find()
-      .sort({ [sortBy]: order })
-      .skip(skip)
-      .limit(perPage),
+  const query = {};
 
-    Student.countDocuments(),
-  ]);
+  if (filters.gender) {
+    query.gender = filters.gender;
+  }
+
+  if (typeof filters.onDuty !== 'undefined') {
+    query.onDuty = filters.onDuty === 'true';
+  }
+
+  if (filters.name) {
+    query.name = { $regex: filters.name, $options: 'i' };
+  }
+
+  let students;
+  let total = await Student.countDocuments(query);
+
+  if (all) {
+    // возвращаем все студенты, игнорируя пагинацию
+    students = await Student.find(query).sort({ [sortBy]: order });
+    return {
+      students,
+      meta: {
+        total,
+      },
+    };
+  }
+
+  // стандартная пагинация
+  const skip = (page - 1) * perPage;
+
+  students = await Student.find(query)
+    .sort({ [sortBy]: order })
+    .skip(skip)
+    .limit(perPage);
 
   return {
     students,
@@ -28,7 +56,6 @@ export const getAllStudents = async ({
     },
   };
 };
-
 
 // export const getAllStudents = async () => {
 //   return await Student.find();

@@ -5,14 +5,29 @@ import { parsePaginationParams } from '../src/utils/parsePaginationParams.js';
 
 export const getAllStudentsController = async (req, res, next) => {
   try {
+    // Достаём параметры из query
     const { page, perPage } = parsePaginationParams(req.query);
-    const { sortBy, sortOrder } = req.query;
+    const {
+      sortBy = 'createdAt',
+      sortOrder = 'asc',
+      gender,
+      onDuty,
+      name,
+      all = 'false', // по умолчанию false
+    } = req.query;
+
+    const filters = { gender, onDuty, name };
+
+    // Преобразуем строку "true"/"false" в boolean
+    const returnAll = all === 'true';
 
     const { students, meta } = await getAllStudents({
       page,
       perPage,
       sortBy,
       sortOrder,
+      filters,
+      all: returnAll,
     });
 
     res.json({
