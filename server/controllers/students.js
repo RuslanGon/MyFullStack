@@ -26,6 +26,20 @@ export const getAllStudentsController = async (req, res, next) => {
   }
 };
 
+// export const getAllStudentsController = async (req, res, next) => {
+//   try {
+//     const students = await getAllStudents();
+
+//     res.json({
+//       status: 200,
+//       message: 'get all students',
+//       data: students,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
 export const getStudentByIdController = async (req, res, next) => {
   try {
     const { studentId } = req.params;
