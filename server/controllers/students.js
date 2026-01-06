@@ -6,11 +6,20 @@ import { parsePaginationParams } from '../src/utils/parsePaginationParams.js';
 export const getAllStudentsController = async (req, res, next) => {
   try {
     const { page, perPage } = parsePaginationParams(req.query);
-    const students = await getAllStudents({ page, perPage });
+    const { sortBy, sortOrder } = req.query;
+
+    const { students, meta } = await getAllStudents({
+      page,
+      perPage,
+      sortBy,
+      sortOrder,
+    });
+
     res.json({
       status: 200,
       message: 'get all students',
       data: students,
+      meta,
     });
   } catch (error) {
     next(error);

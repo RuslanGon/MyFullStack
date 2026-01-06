@@ -1,11 +1,20 @@
-
 import { Student } from '../db/models/student.js';
 
-export const getAllStudents = async ({ page = 1, perPage = 10 }) => {
+export const getAllStudents = async ({
+  page = 1,
+  perPage = 10,
+  sortBy = 'createdAt',
+  sortOrder = 'asc',
+}) => {
   const skip = (page - 1) * perPage;
+  const order = sortOrder === 'desc' ? -1 : 1;
 
   const [students, total] = await Promise.all([
-    Student.find().skip(skip).limit(perPage),
+    Student.find()
+      .sort({ [sortBy]: order })
+      .skip(skip)
+      .limit(perPage),
+
     Student.countDocuments(),
   ]);
 
@@ -19,6 +28,11 @@ export const getAllStudents = async ({ page = 1, perPage = 10 }) => {
     },
   };
 };
+
+
+// export const getAllStudents = async () => {
+//   return await Student.find();
+// };
 
 export const getStudentById = async (id) => {
   return await Student.findById(id);
