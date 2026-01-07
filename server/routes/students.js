@@ -41,8 +41,4 @@ studentsRouter.put(
   ctrllWrapper(putStudentController),
 );
 
-
-
-
-
 export default studentsRouter;
