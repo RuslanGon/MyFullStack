@@ -2,6 +2,7 @@ import express from 'express';
 import pinoHttp from 'pino-http';
 import pino from 'pino';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { env } from './utils/env.js';
 import { ENV_VARS } from './constants/index.js';
 import { errorHandlerMiddleware } from './middlewars/errorHandlerMiddleware.js';
@@ -24,6 +25,7 @@ export const startServer = () => {
   );
 
   app.use(cors());
+  app.use(cookieParser());
   app.use(express.json());
 
   app.use(studentsRouter);
