@@ -44,3 +44,12 @@ export const loginUser = async ({ email, password }) => {
   };
 };
 
+export const logoutUser = async (sessionId) => {
+  if (!sessionId) {
+    return false; // вместо throw
+  }
+
+  const result = await Session.deleteOne({ _id: sessionId });
+
+  return result.deletedCount > 0;
+};
