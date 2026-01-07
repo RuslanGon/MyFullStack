@@ -11,11 +11,21 @@ res.json({
 };
 
 export const loginController = async (req,res, next) => {
-    const user = await loginUser(req.body);
+    const session = await loginUser(req.body);
 
     res.json({
         status: 200,
         message: 'User is logined in',
-        data: user,
+        data: {accessToken: session.accessToken},
       });
     };
+
+    // export const loginController = async (req,res, next) => {
+    //   const user = await loginUser(req.body);
+
+    //   res.json({
+    //       status: 200,
+    //       message: 'User is logined in',
+    //       data: user,
+    //     });
+    //   };

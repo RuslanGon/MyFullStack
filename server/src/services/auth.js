@@ -24,6 +24,8 @@ export const loginUser = async ({ email, password }) => {
     throw createHttpError(401, 'Email or password is wrong');
   }
 
+  await Session.deleteOne({userId: user._id});
+
   const accessToken = crypto.randomBytes(30).toString('hex');
   const refreshToken = crypto.randomBytes(40).toString('hex');
 
