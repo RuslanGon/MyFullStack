@@ -44,12 +44,10 @@ export const loginUser = async ({ email, password }) => {
   };
 };
 
-export const logoutUser = async (sessionId) => {
-  if (!sessionId) {
-    return false; // вместо throw
-  }
+export const logoutUser = async (userId) => {
+  if (!userId) return false;
 
-  const result = await Session.deleteOne({ _id: sessionId });
-
+  const result = await Session.deleteOne({ userId });
   return result.deletedCount > 0;
 };
+

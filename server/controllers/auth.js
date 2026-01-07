@@ -46,16 +46,16 @@ export const loginController = async (req, res, next) => {
     //     });
     //   };
 
-export const logoutController = async (req, res, next) => {
+    export const logoutController = async (req, res, next) => {
       try {
-        const sessionId = req.cookies.sessionId;
+        const sessionUserId = req.cookies.sessionId; // здесь хранится user._id
 
-        await logoutUser(sessionId);
+        await logoutUser(sessionUserId);
 
         res.clearCookie('sessionId', {
           httpOnly: true,
           sameSite: 'strict',
-          secure: process.env.NODE_ENV === 'production',
+          secure: false,
         });
 
         res.json({
