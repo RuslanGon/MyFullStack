@@ -1,20 +1,34 @@
-import { createUser, loginUser, logoutUser } from "../src/services/auth.js";
+import {
+  createUser,
+  loginUser,
+  logoutUser,
+  refreshUser,
+} from '../src/services/auth.js';
 
-export const registerController = async (req,res, next) => {
-const user = await createUser(req.body);
+/* ================= REGISTER ================= */
 
-res.json({
-    status: 200,
-    message: 'Register new user',
-    data: user,
-  });
+export const registerController = async (req, res, next) => {
+  try {
+    const user = await createUser(req.body);
+
+    res.json({
+      status: 200,
+      message: 'Register new user',
+      data: user,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
+
+/* ================= LOGIN ================= */
 
 export const loginController = async (req, res, next) => {
   try {
     const session = await loginUser(req.body);
 
-    res.cookie('sessionId', session.user._id.toString(), {
+    // 🔴 В COOKIE КЛАДЁМ session._id
+    res.cookie('sessionId', session.sessionId.toString(), {
       httpOnly: true,
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
@@ -27,14 +41,58 @@ export const loginController = async (req, res, next) => {
       data: {
         user: session.user,
         accessToken: session.accessToken,
-        refreshToken: session.refreshToken
+        refreshToken: session.refreshToken,
       },
     });
   } catch (err) {
-    console.error('Login error:', err); // ← реальный stack trace
+    console.error('Login error:', err);
     next(err);
   }
 };
+
+/* ================= LOGOUT ================= */
+
+export const logoutController = async (req, res, next) => {
+  try {
+    const { sessionId } = req.cookies;
+
+    await logoutUser(sessionId);
+
+    res.clearCookie('sessionId', {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+    });
+
+    res.json({
+      status: 200,
+      message: 'User successfully logged out',
+    });
+  } catch (err) {
+    console.error('Logout error:', err);
+    next(err);
+  }
+};
+
+/* ================= REFRESH ================= */
+
+export const refreshController = async (req, res, next) => {
+  try {
+    const { sessionId } = req.cookies;
+
+    const data = await refreshUser(sessionId);
+
+    res.json({
+      status: 200,
+      message: 'Access token refreshed',
+      data,
+    });
+  } catch (err) {
+    console.error('Refresh error:', err);
+    next(err);
+  }
+};
+
 
     // export const loginController = async (req,res, next) => {
     //   const user = await loginUser(req.body);
@@ -46,24 +104,3 @@ export const loginController = async (req, res, next) => {
     //     });
     //   };
 
-    export const logoutController = async (req, res, next) => {
-      try {
-        const sessionUserId = req.cookies.sessionId; // здесь хранится user._id
-
-        await logoutUser(sessionUserId);
-
-        res.clearCookie('sessionId', {
-          httpOnly: true,
-          sameSite: 'strict',
-          secure: false,
-        });
-
-        res.json({
-          status: 200,
-          message: 'User successfully logged out',
-        });
-      } catch (err) {
-        console.error('Logout error:', err);
-        next(err);
-      }
-    };

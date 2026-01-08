@@ -1,8 +1,11 @@
-import createHttpError from "http-errors";
-import { User } from "../db/models/user.js";
-import bcrypt from "bcrypt";
+import createHttpError from 'http-errors';
+import bcrypt from 'bcrypt';
 import crypto from 'crypto';
-import { Session } from "../db/models/session.js";
+
+import { User } from '../db/models/user.js';
+import { Session } from '../db/models/session.js';
+
+/* ================= REGISTER ================= */
 
 export const createUser = async (payload) => {
   const hashedPassword = await bcrypt.hash(payload.password, 10);
@@ -13,8 +16,11 @@ export const createUser = async (payload) => {
   });
 };
 
+/* ================= LOGIN ================= */
+
 export const loginUser = async ({ email, password }) => {
   const user = await User.findOne({ email });
+
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
@@ -24,7 +30,8 @@ export const loginUser = async ({ email, password }) => {
     throw createHttpError(401, 'Email or password is wrong');
   }
 
-  await Session.deleteOne({userId: user._id});
+  // удаляем старую сессию (1 сессия = 1 пользователь)
+  await Session.deleteOne({ userId: user._id });
 
   const accessToken = crypto.randomBytes(30).toString('hex');
   const refreshToken = crypto.randomBytes(40).toString('hex');
@@ -38,16 +45,49 @@ export const loginUser = async ({ email, password }) => {
   });
 
   return {
+    sessionId: session._id, // 🔴 ВАЖНО
     user,
     accessToken: session.accessToken,
     refreshToken: session.refreshToken,
   };
 };
 
-export const logoutUser = async (userId) => {
-  if (!userId) return false;
+/* ================= LOGOUT ================= */
 
-  const result = await Session.deleteOne({ userId });
+export const logoutUser = async (sessionId) => {
+  if (!sessionId) return false;
+
+  const result = await Session.deleteOne({ _id: sessionId });
   return result.deletedCount > 0;
 };
 
+/* ================= REFRESH ================= */
+
+export const refreshUser = async (sessionId) => {
+  if (!sessionId) {
+    throw createHttpError(401, 'No session cookie');
+  }
+
+  const session = await Session.findById(sessionId);
+
+  if (!session) {
+    throw createHttpError(401, 'Session not found');
+  }
+
+  if (new Date() > session.refreshTokenValidUntil) {
+    throw createHttpError(401, 'Refresh token expired');
+  }
+
+  const newAccessToken = crypto.randomBytes(30).toString('hex');
+
+  session.accessToken = newAccessToken;
+  session.accessTokenValidUntil = new Date(
+    Date.now() + 15 * 60 * 1000
+  );
+
+  await session.save();
+
+  return {
+    accessToken: newAccessToken,
+  };
+};
