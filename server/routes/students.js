@@ -10,12 +10,12 @@ import { authenticate } from "../src/middlewars/authenticate.js";
 
 const studentsRouter = Router();
 
-studentsRouter.get('/students',authenticate, ctrllWrapper(getAllStudentsController));
+studentsRouter.get('/students', authenticate, ctrllWrapper(getAllStudentsController));
 
 studentsRouter.get(
   '/students/:studentId',
   validateMongoId,
-  ctrllWrapper(getStudentByIdController), authenticate
+  ctrllWrapper(getStudentByIdController),
 );
 
 studentsRouter.post('/students',
