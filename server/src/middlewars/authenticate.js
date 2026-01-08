@@ -5,6 +5,7 @@ export const authenticate = async (req, res, next) => {
     const header = req.get('Authorization');
 
     if (!header) {
+      console.error('[AUTH ERROR] Authorization header missing');
       return res.status(401).json({
         status: 401,
         message: 'Authorization header is not provided',
@@ -14,6 +15,7 @@ export const authenticate = async (req, res, next) => {
     const [bearer, token] = header.split(' ');
 
     if (bearer !== 'Bearer' || !token) {
+      console.error('[AUTH ERROR] Invalid Authorization header format');
       return res.status(401).json({
         status: 401,
         message: 'Authorization header must be of Bearer type',
@@ -23,6 +25,7 @@ export const authenticate = async (req, res, next) => {
     const session = await Session.findOne({ accessToken: token });
 
     if (!session) {
+      console.error(`[AUTH ERROR] Session not found for token: ${token}`);
       return res.status(401).json({
         status: 401,
         message: 'Session not found',
@@ -30,6 +33,7 @@ export const authenticate = async (req, res, next) => {
     }
 
     if (new Date() > session.accessTokenValidUntil) {
+      console.error(`[AUTH ERROR] Access token expired for sessionId: ${session._id}`);
       return res.status(401).json({
         status: 401,
         message: 'Access token expired',
@@ -41,7 +45,7 @@ export const authenticate = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.error('Authenticate error:', err);
+    console.error('[AUTH ERROR] Unexpected error:', err);
     return res.status(500).json({
       status: 500,
       message: 'Internal server error',

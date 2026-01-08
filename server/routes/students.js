@@ -5,16 +5,17 @@ import { validateMongoId } from "../src/middlewars/validateMongoId.js";
 import { validateBody } from "../src/middlewars/validateBody.js";
 import { createStudentSchema } from "../validationSchema/createStudentSchema.js";
 import { updateStudentSchema } from "../validationSchema/updateStudentSchema.js";
+import { authenticate } from "../src/middlewars/authenticate.js";
 
 
 const studentsRouter = Router();
 
-studentsRouter.get('/students', ctrllWrapper(getAllStudentsController));
+studentsRouter.get('/students',authenticate, ctrllWrapper(getAllStudentsController));
 
 studentsRouter.get(
   '/students/:studentId',
   validateMongoId,
-  ctrllWrapper(getStudentByIdController),
+  ctrllWrapper(getStudentByIdController), authenticate
 );
 
 studentsRouter.post('/students',
