@@ -27,7 +27,6 @@ export const loginController = async (req, res, next) => {
   try {
     const session = await loginUser(req.body);
 
-    // 🔴 В COOKIE КЛАДЁМ session._id
     res.cookie('sessionId', session.sessionId.toString(), {
       httpOnly: true,
       sameSite: 'strict',

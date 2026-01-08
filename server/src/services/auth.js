@@ -1,7 +1,6 @@
 import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
-
 import { User } from '../db/models/user.js';
 import { Session } from '../db/models/session.js';
 
@@ -30,7 +29,6 @@ export const loginUser = async ({ email, password }) => {
     throw createHttpError(401, 'Email or password is wrong');
   }
 
-  // удаляем старую сессию (1 сессия = 1 пользователь)
   await Session.deleteOne({ userId: user._id });
 
   const accessToken = crypto.randomBytes(30).toString('hex');
@@ -45,7 +43,7 @@ export const loginUser = async ({ email, password }) => {
   });
 
   return {
-    sessionId: session._id, // 🔴 ВАЖНО
+    sessionId: session._id,
     user,
     accessToken: session.accessToken,
     refreshToken: session.refreshToken,
