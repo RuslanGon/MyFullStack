@@ -20,3 +20,31 @@ export const sendMail = async (options) => {
     from: ENV_VARS.SMTP_USER, // от кого письмо
   });
 };
+
+// import nodemailer from 'nodemailer';
+
+// export const createTestTransporter = async () => {
+//   const testAccount = await nodemailer.createTestAccount();
+
+//   return nodemailer.createTransport({
+//     host: 'smtp.ethereal.email',
+//     port: 587,
+//     secure: false,
+//     auth: {
+//       user: testAccount.user,
+//       pass: testAccount.pass,
+//     },
+//   });
+// };
+
+// export const sendMail = async (options) => {
+//   const transporter = await createTestTransporter();
+
+//   const info = await transporter.sendMail({
+//     ...options,
+//     from: `"Test" <${options.to}>`,
+//   });
+
+//   console.log('Preview URL:', nodemailer.getTestMessageUrl(info));
+//   return info;
+// };
