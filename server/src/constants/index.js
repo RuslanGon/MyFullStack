@@ -5,6 +5,7 @@ export const ENV_VARS = {
     DB_PASSWORD: 'DB_PASSWORD',
     DB_NAME: 'DB_NAME',
 
+
     SMTP_HOST: 'SMTP_HOST',
     SMTP_PORT: 'SMTP_PORT',
     SMTP_USER: 'SMTP_USER',
