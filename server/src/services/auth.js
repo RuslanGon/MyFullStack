@@ -97,13 +97,13 @@ export const refreshUser = async (sessionId) => {
 /* ================= resetEmail ================= */
 
 export const resetEmail = async (email) => {
-  // 1️⃣ Проверяем пользователя
+  // 1️⃣ Найти пользователя
   const user = await User.findOne({ email });
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
 
-  // 2️⃣ Создаём JWT токен на 1 час
+  // 2️⃣ Создать JWT токен на 1 час
   const token = jwt.sign(
     { userId: user._id, email: user.email },
     ENV_VARS.JWT_SECRET,
@@ -125,11 +125,6 @@ export const resetEmail = async (email) => {
     `,
   });
 
-
-  return {
-    message: 'Reset email sent',
-    email,
-    token,
-    resetLink
-  };
+  // 5️⃣ Возвращаем данные (для логов/Postman)
+  return { message: 'Reset email sent', email, token, resetLink };
 };
