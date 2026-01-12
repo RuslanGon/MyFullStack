@@ -128,3 +128,38 @@ export const resetEmail = async (email) => {
   // 5️⃣ Возвращаем данные (для логов/Postman)
   return { message: 'Reset email sent', email, token, resetLink };
 };
+
+/* ================= resetPassword ================= */
+
+export const resetPassword = async (email) => {
+  // 1️⃣ Находим пользователя по email
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+
+  // 2️⃣ Создаем JWT токен на 1 час
+  const token = jwt.sign(
+    { userId: user._id, email: user.email },
+    ENV_VARS.JWT_SECRET,
+    { expiresIn: '1h' }
+  );
+
+  // 3️⃣ Формируем ссылку для фронтенда/Postman
+  const resetLink = `http://localhost:3001/reset-password?token=${token}`;
+
+  // 4️⃣ Отправляем письмо
+  await sendMail({
+    to: email,
+    subject: 'Reset your password',
+    html: `
+      <p>You requested a password reset.</p>
+      <p>Click this link to reset your password:</p>
+      <p><a href="${resetLink}">${resetLink}</a></p>
+      <p>Token expires in 1 hour.</p>
+    `,
+  });
+
+  // 5️⃣ Возвращаем данные
+  return { message: 'Reset email sent', email, token, resetLink };
+};

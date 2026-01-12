@@ -4,6 +4,7 @@ import {
   logoutUser,
   refreshUser,
   resetEmail,
+  resetPassword,
 } from '../src/services/auth.js';
 
 /* ================= REGISTER ================= */
@@ -111,6 +112,22 @@ export const resetEmailController = async (req, res, next) => {
       message: err.message,
       stack: err.stack
     });
+  }
+};
+
+/* ================= Reset password ================= */
+
+export const resetPasswordController = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+
+    const result = await resetPassword(email);
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
   }
 };
 
