@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import { User } from '../db/models/user.js';
 import { Session } from '../db/models/session.js';
 import jwt from 'jsonwebtoken';
-import { env } from '../utils/env.js';
+
 import { ENV_VARS } from '../constants/index.js';
 import { sendMail } from '../utils/sendMail.js';
 
@@ -97,19 +97,20 @@ export const refreshUser = async (sessionId) => {
 /* ================= resetEmail ================= */
 
 export const resetEmail = async (email) => {
-
+  // 1️⃣ Проверяем пользователя
   const user = await User.findOne({ email });
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
 
+  // 2️⃣ Создаём JWT токен на 1 час
   const token = jwt.sign(
     { userId: user._id, email: user.email },
-    env(ENV_VARS.JWT_SECRET), // твой секрет из env
-    { expiresIn: '1h' } // токен живёт 1 час
+    ENV_VARS.JWT_SECRET,
+    { expiresIn: '1h' }
   );
 
-  // 3️⃣ Ссылка для фронтенда или Postman
+  // 3️⃣ Ссылка для фронтенда/Postman
   const resetLink = `http://localhost:3001/reset-password?token=${token}`;
 
   // 4️⃣ Отправляем письмо
@@ -124,6 +125,11 @@ export const resetEmail = async (email) => {
     `,
   });
 
-  // 5️⃣ Возвращаем токен (для логов или теста в Postman)
-  return { message: 'Reset email sent', email, token };
+
+  return {
+    message: 'Reset email sent',
+    email,
+    token,
+    resetLink
+  };
 };

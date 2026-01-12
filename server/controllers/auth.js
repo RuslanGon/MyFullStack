@@ -98,10 +98,13 @@ export const refreshController = async (req, res, next) => {
 export const resetEmailController = async (req, res, next) => {
   try {
     const { email } = req.body;
-    await resetEmail(email);
+
+    const result = await resetEmail(email);
+
     res.json({
       status: 200,
-      message: 'Password reset email was successfully sent',
+      message: 'Password reset email successfully sent',
+      data: result
     });
   } catch (err) {
     console.error('Reset email error:', err);
