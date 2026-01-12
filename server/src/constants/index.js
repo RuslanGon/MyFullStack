@@ -4,6 +4,7 @@ DB_USER: 'practica',
 DB_PASSWORD: 'practica',
 DB_NAME: 'practica',
 
+
 SMTP_HOST: 'smtp-relay.brevo.com',
 SMPT_PORT: 587,
 SMPT_USER: '77ea97001@smtp-brevo.com',
