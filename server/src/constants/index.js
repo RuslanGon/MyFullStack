@@ -1,11 +1,13 @@
-export const ENV_VARS = {
-PORT: 'PORT',
-DB_USER: 'practica',
-DB_PASSWORD: 'practica',
-DB_NAME: 'practica',
 
-SMTP_HOST: 'smtp-relay.brevo.com',
-SMTP_PORT: 587,
-SMTP_USER: '77ea97001@smtp-brevo.com',
-SMTP_PASSWORD: 'xsmtpsib-65d9b97b4cf6ed263b265976af0f559b69b7fc1bbd6b8500ae0721faaf58551a-VDAGEa5iC5a8TMSp',
-};
+export const ENV_VARS = {
+    PORT: 'PORT',
+
+    DB_USER: 'DB_USER',
+    DB_PASSWORD: 'DB_PASSWORD',
+    DB_NAME: 'DB_NAME',
+
+    SMTP_HOST: 'SMTP_HOST',
+    SMTP_PORT: 'SMTP_PORT',
+    SMTP_USER: 'SMTP_USER',
+    SMTP_PASSWORD: 'SMTP_PASSWORD',
+  };

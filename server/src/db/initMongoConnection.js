@@ -1,14 +1,22 @@
-import mongoose from "mongoose";
-import { ENV_VARS } from "../constants/index.js";
+import mongoose from 'mongoose';
 
 export const initMongoConnection = async () => {
-  const connectionLink = `mongodb+srv://${ENV_VARS.DB_USER}:${ENV_VARS.DB_PASSWORD}@cluster0.lc6ql.mongodb.net/${ENV_VARS.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
+  const {
+    DB_USER,
+    DB_PASSWORD,
+    DB_NAME,
+  } = process.env;
+
+  const connectionLink =
+    `mongodb+srv://${DB_USER}:${DB_PASSWORD}` +
+    `@cluster0.lc6ql.mongodb.net/${DB_NAME}` +
+    `?retryWrites=true&w=majority&appName=Cluster0`;
 
   try {
     await mongoose.connect(connectionLink);
-    console.log("MongoDB connected");
+    console.log('MongoDB connected');
   } catch (error) {
-    console.log(error);
+    console.error('Mongo connection error:', error);
     throw error;
   }
 };
