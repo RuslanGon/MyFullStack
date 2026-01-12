@@ -3,6 +3,7 @@ import {
   loginUser,
   logoutUser,
   refreshUser,
+  resetEmail,
 } from '../src/services/auth.js';
 
 /* ================= REGISTER ================= */
@@ -92,6 +93,21 @@ export const refreshController = async (req, res, next) => {
   }
 };
 
+/* ================= Reset email ================= */
+
+export const resetEmailController = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    await resetEmail(email);
+    res.json({
+      status: 200,
+      message: 'Password reset email was successfully sent',
+    });
+  } catch (err) {
+    console.error('Reset email error:', err);
+    next(err);
+  }
+};
 
     // export const loginController = async (req,res, next) => {
     //   const user = await loginUser(req.body);

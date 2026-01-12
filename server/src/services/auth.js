@@ -3,6 +3,10 @@ import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import { User } from '../db/models/user.js';
 import { Session } from '../db/models/session.js';
+import jwt from 'jsonwebtoken';
+import { env } from '../utils/env.js';
+import { ENV_VARS } from '../constants/index.js';
+import { sendMail } from '../utils/sendMail.js';
 
 /* ================= REGISTER ================= */
 
@@ -88,4 +92,38 @@ export const refreshUser = async (sessionId) => {
   return {
     accessToken: newAccessToken,
   };
+};
+
+/* ================= resetEmail ================= */
+
+export const resetEmail = async (email) => {
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+
+  const token = jwt.sign(
+    { userId: user._id, email: user.email },
+    env(ENV_VARS.JWT_SECRET), // твой секрет из env
+    { expiresIn: '1h' } // токен живёт 1 час
+  );
+
+  // 3️⃣ Ссылка для фронтенда или Postman
+  const resetLink = `http://localhost:3001/reset-password?token=${token}`;
+
+  // 4️⃣ Отправляем письмо
+  await sendMail({
+    to: email,
+    subject: 'Reset your password',
+    html: `
+      <p>You requested a password reset.</p>
+      <p>Click this link to reset your password:</p>
+      <p><a href="${resetLink}">${resetLink}</a></p>
+      <p>Token expires in 1 hour.</p>
+    `,
+  });
+
+  // 5️⃣ Возвращаем токен (для логов или теста в Postman)
+  return { message: 'Reset email sent', email, token };
 };
