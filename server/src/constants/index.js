@@ -1,3 +1,5 @@
+import path from 'path';
+
 export const ENV_VARS = {
     PORT: 'PORT',
 
@@ -12,3 +14,5 @@ export const ENV_VARS = {
 
     JWT_SECRET: 'JWT_SECRET'
   };
+
+export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'temp');

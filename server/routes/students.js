@@ -6,6 +6,7 @@ import { validateBody } from "../src/middlewars/validateBody.js";
 import { createStudentSchema } from "../validationSchema/createStudentSchema.js";
 import { updateStudentSchema } from "../validationSchema/updateStudentSchema.js";
 import { authenticate } from "../src/middlewars/authenticate.js";
+import { upload } from "../src/middlewars/upload.js";
 
 
 const studentsRouter = Router();
@@ -20,6 +21,7 @@ studentsRouter.get(
 );
 
 studentsRouter.post('/students',
+upload.single('avatar'),
 validateBody(createStudentSchema),
 ctrllWrapper(createStudentController));
 
