@@ -2,7 +2,6 @@ import express from 'express';
 import pinoHttp from 'pino-http';
 import pino from 'pino';
 import cors from 'cors';
-import path from 'node:path';
 import cookieParser from 'cookie-parser';
 import { env } from './utils/env.js';
 import { ENV_VARS, UPLOAD_DIR } from './constants/index.js';
