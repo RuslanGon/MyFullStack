@@ -1,23 +1,23 @@
 import path from 'path';
 
 export const ENV_VARS = {
-    PORT: 'PORT',
+  PORT: 'PORT',
 
-    DB_USER: 'DB_USER',
-    DB_PASSWORD: 'DB_PASSWORD',
-    DB_NAME: 'DB_NAME',
+  DB_USER: 'DB_USER',
+  DB_PASSWORD: 'DB_PASSWORD',
+  DB_NAME: 'DB_NAME',
 
-    SMTP_HOST: 'SMTP_HOST',
-    SMTP_PORT: 'SMTP_PORT',
-    SMTP_USER: 'SMTP_USER',
-    SMTP_PASSWORD: 'SMTP_PASSWORD',
+  SMTP_HOST: 'SMTP_HOST',
+  SMTP_PORT: 'SMTP_PORT',
+  SMTP_USER: 'SMTP_USER',
+  SMTP_PASSWORD: 'SMTP_PASSWORD',
 
-    JWT_SECRET: 'JWT_SECRET',
-    BACKEND_HOST: 'BACKEND_HOST'
-  };
-
-  // export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'server', 'temp');
-  // export const UPLOAD_DIR = path.join(process.cwd(), 'server', 'upload');
+  JWT_SECRET: 'JWT_SECRET',
+  BACKEND_HOST: 'BACKEND_HOST',
+  CLOUDINARY_CLOUD_NAME: 'CLOUDINARY_CLOUD_NAME',
+  CLOUDINARY_API_KEY: 'CLOUDINARY_API_KEY',
+  CLOUDINARY_API_SECRET: 'CLOUDINARY_API_SECRET',
+};
 
 export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'temp');
 export const UPLOAD_DIR = path.join(process.cwd(), 'upload');
