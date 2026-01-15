@@ -29,7 +29,7 @@ export const startServer = () => {
   app.use(cookieParser());
   app.use(express.json());
 
-  app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+  app.use('/uploads', express.static(path.join(process.cwd(), 'server', 'upload')));
 
 
   app.use(studentsRouter);
