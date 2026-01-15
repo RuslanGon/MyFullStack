@@ -2,6 +2,7 @@ import express from 'express';
 import pinoHttp from 'pino-http';
 import pino from 'pino';
 import cors from 'cors';
+import path from 'node:path';
 import cookieParser from 'cookie-parser';
 import { env } from './utils/env.js';
 import { ENV_VARS } from './constants/index.js';
@@ -27,6 +28,9 @@ export const startServer = () => {
   app.use(cors());
   app.use(cookieParser());
   app.use(express.json());
+
+  app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+
 
   app.use(studentsRouter);
   app.use(authRouter);
