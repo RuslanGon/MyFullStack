@@ -5,7 +5,7 @@ import cors from 'cors';
 import path from 'node:path';
 import cookieParser from 'cookie-parser';
 import { env } from './utils/env.js';
-import { ENV_VARS } from './constants/index.js';
+import { ENV_VARS, UPLOAD_DIR } from './constants/index.js';
 import { errorHandlerMiddleware } from './middlewars/errorHandlerMiddleware.js';
 import { notFoundMiddleware } from './middlewars/notFoundMiddleware.js';
 import studentsRouter from '../routes/students.js';
@@ -29,7 +29,7 @@ export const startServer = () => {
   app.use(cookieParser());
   app.use(express.json());
 
-  app.use('/uploads', express.static(path.join(process.cwd(), 'server', 'upload')));
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
 
   app.use(studentsRouter);

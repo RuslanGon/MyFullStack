@@ -16,9 +16,9 @@ export const ENV_VARS = {
     BACKEND_HOST: 'BACKEND_HOST'
   };
 
-  export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'server', 'temp');
-  export const UPLOAD_DIR = path.join(process.cwd(), 'server', 'upload');
+  // export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'server', 'temp');
+  // export const UPLOAD_DIR = path.join(process.cwd(), 'server', 'upload');
 
-// export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'temp');
-// export const UPLOAD_DIR = path.join(process.cwd(), 'upload');
+export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'temp');
+export const UPLOAD_DIR = path.join(process.cwd(), 'upload');
 
