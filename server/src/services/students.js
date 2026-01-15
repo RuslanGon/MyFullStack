@@ -1,4 +1,5 @@
 import { Student } from '../db/models/student.js';
+import { saveFile } from '../utils/saveFile.js';
 
 export const getAllStudents = async ({
   page = 1,
@@ -65,9 +66,14 @@ export const getStudentById = async (id) => {
   return await Student.findById(id);
 };
 
-export const createStudent = async (payload) => {
-  return await Student.create(payload);
+export const createStudent = async ({avatar, ...payload}) => {
+  const url = await saveFile(avatar);
+  return await Student.create({...payload, avatarUrl: url});
 };
+
+// export const createStudent = async (payload) => {
+//   return await Student.create(payload);
+// };
 
 export const deleteStudent = async (id) => {
   return Student.findByIdAndDelete(id);

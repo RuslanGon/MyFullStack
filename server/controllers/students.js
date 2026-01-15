@@ -85,9 +85,9 @@ export const getStudentByIdController = async (req, res, next) => {
 };
 
 export const createStudentController = async (req, res, next) => {
-  const { body } = req;
+  const { body, file } = req;
 
-  const student = await createStudent(body);
+  const student = await createStudent({...body, avatar: file});
 
   res.status(201).json({
     status: 201,
@@ -95,6 +95,18 @@ export const createStudentController = async (req, res, next) => {
     data: student,
   });
 };
+
+// export const createStudentController = async (req, res, next) => {
+//   const { body } = req;
+
+//   const student = await createStudent(body);
+
+//   res.status(201).json({
+//     status: 201,
+//     message: 'Create new student',
+//     data: student,
+//   });
+// };
 
 export const deleteStudentByIdController = async (req, res, next) => {
   const { studentId } = req.params;

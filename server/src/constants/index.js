@@ -12,7 +12,10 @@ export const ENV_VARS = {
     SMTP_USER: 'SMTP_USER',
     SMTP_PASSWORD: 'SMTP_PASSWORD',
 
-    JWT_SECRET: 'JWT_SECRET'
+    JWT_SECRET: 'JWT_SECRET',
+    BACKEND_HOST: 'BACKEND_HOST'
   };
 
 export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'temp');
+export const UPLOAD_DIR = path.join(process.cwd(), 'upload');
+
