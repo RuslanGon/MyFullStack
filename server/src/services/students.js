@@ -1,5 +1,6 @@
 import { Student } from '../db/models/student.js';
-import { saveFile } from '../utils/saveFile.js';
+// import { saveFile } from '../utils/saveFile.js';
+import { saveToCloudinary } from '../utils/saveToCloudinary.js';
 
 export const getAllStudents = async ({
   page = 1,
@@ -67,7 +68,9 @@ export const getStudentById = async (id) => {
 };
 
 export const createStudent = async ({avatar, ...payload}) => {
-  const url = await saveFile(avatar);
+  // const url = await saveFile(avatar);
+  const url = await saveToCloudinary(avatar);
+
   return await Student.create({...payload, avatarUrl: url});
 };
 
